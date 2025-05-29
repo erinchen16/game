@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 20px));
+    overflow-x: hidden;
+    overflow-y: auto;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fadeIn 0.8s ease-out;
+    height: fit-content;
+    max-height: calc(100vh - 40px - 68px - env(safe-area-inset-bottom, 20px));
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 15px;
+}
+
+.settings {
+    background: #f7fafc;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.setting-group {
+    margin-bottom: 15px;
+}
+
+.setting-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4a5568;
+    margin-bottom: 5px;
+}
+
+.setting-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    background: white;
+}
+
+.card-display {
+    background: white;
+    border: 3px dashed #cbd5e0;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: scale(1);
+    transition: all 0.3s ease;
+    animation: cardPop 0.6s ease-out;
+    width: 100%;
+    max-width: 300px;
+}
+
+@keyframes cardPop {
+    0% { transform: scale(0) rotate(180deg); opacity: 0; }
+    50% { transform: scale(1.1) rotate(10deg); opacity: 0.8; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.card.character { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+.card.goal { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+.card.location { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+.card.item { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.card.action { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; }
+
+.card-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-type {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.1);
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.card-description {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-secondary {
+    background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+    color: #333;
+}
+
+.game-info {
+    background: #e6fffa;
+    border: 2px solid #4fd1c7;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.story-hint {
+    background: #fff5f5;
+    border: 2px solid #feb2b2;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.cards-drawn {
+    background: #f0fff4;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.cards-drawn h3 {
+    color: #38a169;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.mini-card {
+    display: inline-block;
+    background: #e6fffa;
+    border: 1px solid #4fd1c7;
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin: 3px;
+    font-size: 12px;
+}
+
+.progress {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.empty-state {
+    color: #a0aec0;
+    font-size: 18px;
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 0;
+        border-radius: 0;
+        padding: 15px;
+        max-width: 100%;
+    }
+    
+    .title {
+        font-size: 20px;
+    }
+    
+    .button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}

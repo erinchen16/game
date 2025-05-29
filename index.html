@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🌟 故事卡牌大冒险</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="height: 3000px;">
+
+        <div class="settings" id="settingsPanel">
+            <div class="header">
+                <h1 class="title">🌟 故事卡牌大冒险</h1>
+                <p class="subtitle">创造属于你的可持续发展故事！</p>
+            </div>
+            <div class="setting-group">
+                <label class="setting-label">🎯 设定总卡牌数量：</label>
+                <input type="number" class="setting-input" id="totalCards" value="5" min="3" max="20">
+            </div>
+            <button class="button" onclick="startGame()">🚀 开始游戏</button>
+        </div>
+        
+        <div id="gamePanel" style="display: none;">
+
+         <div style="text-align: center;">
+                <button class="button" id="drawButton" onclick="drawCard()">🎴 抽取卡牌</button>
+                <!-- <button class="button button-secondary" onclick="getStoryHint()" id="hintButton" style="display: none;">💡 故事提示</button> -->
+                <button class="button button-secondary" onclick="restartGame()">🔄 重新开始</button>
+            </div>
+
+
+            <div class="game-info">
+                <p>🎲 卡牌进度：<span id="currentCard">0</span> / <span id="totalCardsDisplay">5</span></p>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-display" id="cardDisplay">
+                <div class="empty-state">
+                    点击下方按钮抽取你的第一张卡牌！✨
+                </div>
+            </div>
+            
+            <div class="cards-drawn" id="cardsDrawn" style="display: none;">
+                <h3>📚 已抽取的卡牌：</h3>
+                <div id="drawnCardsList"></div>
+            </div>
+            
+ 
+            
+            <div class="story-hint" id="storyHint" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
