@@ -10,11 +10,15 @@
         // 显示规则弹窗
         function showRules() {
             document.getElementById('rulesModal').style.display = 'flex';
+            // 阻止背景滚动
+            document.body.style.overflow = 'hidden';
         }
         
         // 关闭规则弹窗
         function closeRules() {
             document.getElementById('rulesModal').style.display = 'none';
+            // 恢复背景滚动
+            document.body.style.overflow = 'auto';
         }
         
         // 点击弹窗外部关闭
