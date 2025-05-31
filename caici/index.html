@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>疯狂猜词 - 环保版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            /*background-color: black;*/
+        }
+
+
+
+
+        body {
+            font-family: '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            touch-action: none;
+            padding-bottom: calc(68px + env(safe-area-inset-bottom));
+            background: #a5a5e3;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .score-board {
+            background: rgba(255,255,255,0.9);
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .score {
+            font-size: 1.2rem;
+            color: #2d3436;
+            font-weight: bold;
+        }
+
+        .word-display {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .hint {
+            font-size: 1.1rem;
+            color: #636e72;
+            margin-bottom: 15px;
+        }
+
+        .word-letters {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2d3436;
+            letter-spacing: 8px;
+            font-family: monospace;
+        }
+
+        .input-area {
+            margin-bottom: 20px;
+        }
+
+        .guess-input {
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: 3px solid #74b9ff;
+            border-radius: 25px;
+            outline: none;
+            width: 250px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: #00b894;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #00a085;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fdcb6e;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #f39c12;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message.correct {
+            background: #00b894;
+            color: white;
+        }
+
+        .message.wrong {
+            background: #e17055;
+            color: white;
+        }
+
+        .eco-tips {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .eco-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* iPhone适配 */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            body {
+                padding-bottom: calc(68px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .game-title {
+                font-size: 2rem;
+            }
+            
+            .word-display {
+                min-width: 250px;
+                padding: 20px;
+            }
+            
+            .word-letters {
+                font-size: 1.5rem;
+                letter-spacing: 5px;
+            }
+            
+            .guess-input {
+                width: 200px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">🌱 疯狂猜词 🌍</h1>
+        
+        <div class="score-board">
+            <div class="score">得分: <span id="score">0</span> 分</div>
+        </div>
+
+        <div class="word-display">
+            <div class="hint" id="hint">提示: 我们每天都需要它来生活</div>
+            <div class="word-letters" id="wordDisplay">_ _ _</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" class="guess-input" id="guessInput" placeholder="输入你的答案">
+            <button class="btn btn-primary" onclick="checkAnswer()">猜一猜 🎯</button>
+        </div>
+
+        <div class="input-area">
+            <button class="btn btn-secondary" onclick="getHint()">要提示 💡</button>
+            <button class="btn btn-secondary" onclick="nextWord()">下一题 ➡️</button>
+        </div>
+
+        <div id="message"></div>
+
+        <div class="eco-tips">
+            <div class="eco-icon">🌿</div>
+            <div>保护地球，从我做起！每猜对一个词，就多学一个环保知识！</div>
+        </div>
+    </div>
+
+    <script>
+        // 防止页面滑动
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            let now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        const words = [
+            { word: '水', hint: '我们每天都需要它来生活，没有它地球就没有生命', tips: '💧 节约用水，保护水资源！' },
+            { word: '树', hint: '它是地球的肺，能制造新鲜空气', tips: '🌳 多种树，让地球更绿！' },
+            { word: '垃圾分类', hint: '把不同的废物放到不同的桶里', tips: '🗂️ 垃圾分类，变废为宝！' },
+            { word: '太阳能', hint: '来自天空中那个大火球的清洁能源', tips: '☀️ 使用清洁能源，减少污染！' },
+            { word: '回收', hint: '让旧东西变成新东西的魔法', tips: '♻️ 回收利用，循环使用！' },
+            { word: '节能', hint: '少用一些电和能量的好习惯', tips: '💡 节约能源，保护环境！' },
+            { word: '绿色出行', hint: '走路、骑车或坐公交去玩', tips: '🚲 绿色出行，减少尾气！' },
+            { word: '环保袋', hint: '去超市购物时可以重复使用的袋子', tips: '🛍️ 使用环保袋，减少塑料！' },
+            { word: '空气', hint: '我们呼吸的看不见的东西', tips: '🌬️ 保护空气，健康呼吸！' },
+            { word: '花草', hint: '美丽的植物朋友们', tips: '🌸 爱护花草，美化环境！' }
+        ];
+
+        let currentWordIndex = 0;
+        let score = 0;
+        let hintsUsed = 0;
+
+        function displayWord() {
+            const current = words[currentWordIndex];
+            const wordLength = current.word.length;
+            document.getElementById('hint').textContent = `提示: ${current.hint}`;
+            document.getElementById('wordDisplay').textContent = '_ '.repeat(wordLength).trim();
+            document.getElementById('guessInput').value = '';
+            document.getElementById('message').innerHTML = '';
+            hintsUsed = 0;
+        }
+
+        function checkAnswer() {
+            const guess = document.getElementById('guessInput').value.trim();
+            const correct = words[currentWordIndex].word;
+            const messageDiv = document.getElementById('message');
+
+            if (guess === correct) {
+                score += (10 - hintsUsed * 2);
+                document.getElementById('score').textContent = score;
+                messageDiv.innerHTML = `
+                    <div class="message correct">
+                        🎉 太棒了！答对了！<br>
+                        ${words[currentWordIndex].tips}
+                    </div>
+                `;
+                setTimeout(() => {
+                    nextWord();
+                }, 2000);
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message wrong">
+                        😅 再想想吧！不是"${guess}"哦
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById('message').innerHTML = '';
+                }, 1500);
+            }
+        }
+
+        function getHint() {
+            const current = words[currentWordIndex];
+            const word = current.word;
+            hintsUsed++;
+            
+            if (hintsUsed === 1) {
+                // 显示第一个字
+                let display = word[0];
+                for (let i = 1; i < word.length; i++) {
+                    display += ' _';
+                }
+                document.getElementById('wordDisplay').textContent = display;
+            } else if (hintsUsed === 2) {
+                // 显示更多字
+                let display = '';
+                for (let i = 0; i < word.length; i++) {
+                    if (i === 0 || i === Math.floor(word.length / 2)) {
+                        display += word[i] + ' ';
+                    } else {
+                        display += '_ ';
+                    }
+                }
+                document.getElementById('wordDisplay').textContent = display.trim();
+            } else {
+                document.getElementById('message').innerHTML = `
+                    <div class="message">💡 已经给了很多提示啦！再仔细想想</div>
+                `;
+                setTimeout(() => {
+                    document.getElementById('message').innerHTML = '';
+                }, 1500);
+            }
+        }
+
+        function nextWord() {
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+            displayWord();
+        }
+
+        // 回车键提交答案
+        document.getElementById('guessInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        // 初始化游戏
+        displayWord();
+    </script>
+</body>
+</html>
