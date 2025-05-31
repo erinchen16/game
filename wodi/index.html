@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>可持续发展 - 谁是卧底</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🌱 可持续发展谁是卧底 🌱</h1>
+        <p class="subtitle">和朋友们一起学习环保知识吧！</p>
+        
+        <!-- 游戏设置页 -->
+        <div class="game-setup" id="gameSetup">
+            <div class="player-input">
+                <label for="playerCount">玩家人数：</label>
+                <input type="number" id="playerCount" min="3" max="8" value="4" />
+            </div>
+            <button class="start-btn" id="startBtn">🎮 开始游戏</button>
+        </div>
+        
+        <!-- 游戏进行页 -->
+        <div class="game-area" id="gameArea">
+            <div class="current-player">
+                <div class="player-name" id="currentPlayerName">玩家 1</div>
+                <div class="player-number" id="playerProgress">1 / 4</div>
+            </div>
+            
+            <div class="card">
+                <div class="word" id="wordDisplay">竹制品</div>
+                <div class="word-description" id="wordDescription">环保可降解的天然材料制品</div>
+            </div>
+            
+            <div>
+                <button class="next-btn" id="nextBtn">👀 我看完了</button>
+                <button class="reveal-btn" id="revealBtn">🎯 揭晓答案</button>
+            </div>
+        </div>
+        
+        <!-- 游戏结束页 -->
+        <div class="game-end" id="gameEnd">
+            <h2 class="end-title">🎉 游戏结束！</h2>
+            <div class="word-reveal">
+                <h3>平民词汇：<span id="civilianWord"></span></h3>
+                <p id="civilianDesc"></p>
+            </div>
+            <div class="word-reveal">
+                <h3>卧底词汇：<span id="spyWord"></span></h3>
+                <p id="spyDesc"></p>
+            </div>
+            <button class="restart-btn" id="restartBtn">🔄 再玩一次</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
