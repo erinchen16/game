@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可持续游戏集合</title>
+    <style>
+        :root {
+            /* 莫兰迪色系 - 每个颜色都不同 */
+            --header-bg: #a7c4bc;  /* 莫兰迪绿 */
+            --card1-bg: #e2b4bd;   /* 莫兰迪粉 */
+            --card2-bg: #b5a7c4;   /* 莫兰迪紫 */
+            --card3-bg: #c4b7a7;   /* 莫兰迪米 */
+            --footer-bg: #d3d3d3;   /* 莫兰迪灰 */
+            --text-dark: #5e5e5e;   /* 深灰 */
+            --text-light: #f8f8f8; /* 浅色文字 */
+            --bg-color: #f0f0f0;    /* 背景浅灰 */
+            --shadow-color: rgba(94, 94, 94, 0.1); /* 阴影色 */
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ECE8DF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: var(--header-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #ECE8DF;
+            transform: skewY(-2deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            margin-top: 0.8rem;
+            opacity: 0.9;
+            font-size: 1.2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            flex: 1;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px var(--shadow-color);
+        }
+        
+        .game-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-image::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: white;
+            transform: skewY(-3deg);
+        }
+        
+        #caici {
+            background-color: var(--card1-bg);
+        }
+        
+        #wodi {
+            background-color: var(--card2-bg);
+        }
+        
+        #story {
+            background-color: var(--card3-bg);
+        }
+        
+        .game-content {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .game-title {
+            margin: 0 0 1.2rem 0;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        
+        .game-description {
+            margin: 0;
+            color: var(--text-dark);
+            opacity: 0.85;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background-color: var(--footer-bg);
+            color: var(--text-dark);
+            margin-top: auto;
+            font-weight: 300;
+            font-size: 1.05rem;
+        }
+        
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                margin: 3rem auto;
+                padding: 0 1.5rem;
+            }
+            
+            .game-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>可持续游戏集合</h1>
+            <p class="subtitle">探索环保理念的趣味方式</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="games-grid">
+            <a href="https://erinchen16.github.io/game/caici/" class="game-card">
+                <div class="game-image" id="caici"></div>
+                <div class="game-content">
+                    <h3 class="game-title">疯狂猜词可持续版</h3>
+                    <p class="game-description">通过趣味猜词游戏学习可持续发展知识，在娱乐中了解环保概念和绿色生活方式，适合所有年龄段玩家。</p>
+                </div>
+            </a>
+            
+            <a href="https://erinchen16.github.io/game/wodi/" class="game-card">
+                <div class="game-image" id="wodi"></div>
+                <div class="game-content">
+                    <h3 class="game-title">谁是卧底可持续版</h3>
+                    <p class="game-description">经典社交游戏的全新版本，所有题目围绕环保主题设计，培养环保意识的同时享受游戏乐趣。</p>
+                </div>
+            </a>
+            
+            <a href="https://erinchen16.github.io/game" class="game-card">
+                <div class="game-image" id="story"></div>
+                <div class="game-content">
+                    <h3 class="game-title">可持续故事大冒险</h3>
+                    <p class="game-description">互动式叙事体验，您的每个选择都将影响虚拟世界的生态环境，体验可持续发展的决策过程。</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 可持续游戏集合 | 为地球的美好明天而设计</p>
+    </footer>
+</body>
+</html>
